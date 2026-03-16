@@ -2,18 +2,22 @@
   <form class="p-8">
     <h2 class="text-xl font-bold text-blue-500">Voertuiginformatie opzoeken</h2>
 
-    <!-- SELECT VEHICLE TYPE-->
-    <label class="block mt-4">
-      <span class="text-gray-700">Van welk type voertuig wilt u voertuiginformatie opzoeken?</span>
-      <select class="block w-full mt-1 rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0" name="vehicle-type">
-        <option>Auto</option>
-        <option>Motor</option>
-        <option>Scooter</option>
-      </select>
-    </label>
+  <!-- SELECT VEHICLE TYPE-->
+<label class="block mt-4">
+  <span class="text-gray-700">Van welk type voertuig wilt u voertuiginformatie opzoeken?</span>
+  <select
+    [(ngModel)]="vehicleType"
+    class="block w-full mt-1 rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0"
+    name="vehicle-type"
+  >
+    <option value="auto">Auto</option>
+    <option value="motor">Motor</option>
+    <option value="scooter">Scooter</option>
+  </select>
+</label>
 
     <!-- SELECT VEHICLE SUBTYPE-->
-    <label class="block mt-4">
+    <label class="block mt-4" *ngIf="vehicleType !== 'scooter'"> <!--voor scooter zijn er geen subtypes-->
       <span class="text-gray-700">Welk type [auto/motor/brommer] hebt u?</span>
       <select class="block w-full mt-1 rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0" name="vehicle-subtype">
         <option>Hatchback</option>
@@ -43,7 +47,8 @@
       <div class="text-red-700">Vul alle waardes correct in.</div>
     </div>
   </form>
+  <!-- Image source updates automatically from selected vehicle type -->
   <picture>
-    <img src="./assets/auto.jpg" alt="auto" class="object-cover h-full w-full">
+    <img [src]="vehicleImage" [alt]="vehicleType" class="object-cover h-full w-full">
   </picture>
 </div>
