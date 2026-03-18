@@ -4,10 +4,14 @@ import { FormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { StoreModule } from '@ngrx/store';
+import { VehicleFormComponent } from './vehicle-form/vehicle-form.component';
+import { VehicleImageComponent } from './vehicle-image/vehicle-image.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    VehicleFormComponent,
+    VehicleImageComponent
   ],
   imports: [
     BrowserModule,

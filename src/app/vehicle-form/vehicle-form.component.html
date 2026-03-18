@@ -1,0 +1,68 @@
+<div>
+  <form class="p-8">
+    <h2 class="text-xl font-bold text-blue-500">Voertuiginformatie opzoeken</h2>
+
+  <!-- SELECT VEHICLE TYPE-->
+<label class="block mt-4">
+  <span class="text-gray-700">Van welk type voertuig wilt u voertuiginformatie opzoeken?</span>
+
+  <!--This keeps the parent state in sync when the vehicle type changes-->
+  <select 
+    [(ngModel)]="vehicleType"
+    (ngModelChange)="onVehicleTypeChange($event)"
+    class="block w-full mt-1 rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0"
+    name="vehicle-type"
+  >
+    <option value="auto">Auto</option>
+    <option value="motor">Motor</option>
+    <option value="scooter">Scooter</option>
+  </select>
+</label>
+
+    <!-- SELECT VEHICLE SUBTYPE-->
+    <label class="block mt-4" *ngIf="vehicleType !== 'scooter'"> <!--scooters don´t have a subtype-->
+      <span class="text-gray-700">Welk type [auto/motor] hebt u?</span>
+      <select
+      [(ngModel)]="vehicleSubtype"
+    class="block w-full mt-1 rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0"
+    name="vehicle-subtype"
+    > <!-- De subtypes zijn niet meer hardcoded maar dynamisch met ngFor-->
+     <option *ngFor="let subtype of subtypes[vehicleType]" [value]="subtype">
+      {{ subtype }}
+    </option>
+  </select>
+</label>
+
+    <!-- INPUT LICENSE PLATE -->
+    <label class="block mt-4">
+  <span class="text-gray-700">Vul het kenteken van uw [auto/motor/scooter] in.</span>
+
+  <input
+    type="text"
+    [(ngModel)]="licensePlate"
+    (ngModelChange)="onLicensePlateInput($event)"
+    (blur)="onLicensePlateBlur()"
+    [ngClass]="{
+    'border-red-400 bg-yellow-400 focus:border-red-500 focus:bg-yellow-300': showLicensePlateError,
+    'border-green-500 bg-green-50 focus:border-green-600': showLicensePlateSuccess,
+    'border-gray-300 bg-yellow-400 focus:border-gray-500 focus:bg-yellow-300': !showLicensePlateError && !showLicensePlateSuccess
+  }"
+    class="mt-1 block w-full rounded-md border-gray-300 bg-yellow-400 focus:border-gray-500 focus:bg-yellow-300 focus:ring-0"
+    name="kenteken"
+    placeholder="Bijvoorbeeld 12-AB-34"
+  >
+</label>
+
+<p *ngIf="showLicensePlateError" class="mt-2 text-sm text-red-600">
+  Helaas is het ingevoerde kenteken niet geldig. Probeer het opnieuw.
+</p>
+
+    <div class="mt-4">
+      <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" type="submit">
+        Verzenden
+      </button>
+      <div *ngIf="showLicensePlateError" class="text-red-700">
+        Vul alle waardes correct in.
+      </div>
+    </div>
+  </form>

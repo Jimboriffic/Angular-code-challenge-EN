@@ -8,19 +8,6 @@ type VehicleType = 'auto' | 'motor' | 'scooter';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
+  // Shared vehicle state is here so the form and preview stays in sync
   vehicleType: VehicleType = 'auto';
-  vehicleSubtype = 'Hatchback';
-  licensePlate = '';
-
-  // Available subtypes options rely on selected vehicle type
-   subtypes = {
-    auto: ['Hatchback', 'Sedan', 'Station', 'Cabriolet', 'Coupé', 'MPV', 'Terreinauto'],
-    motor: ['All-road', 'Naked', 'Enduro', 'Race', 'Toermotor', 'Chopper', 'Zijspan'],
-    scooter: []
-  };
-  
-// For current vehicle selection it matches the image path
-  get vehicleImage(): string {
-    return `assets/${this.vehicleType}.jpg`;
-  }
 }
