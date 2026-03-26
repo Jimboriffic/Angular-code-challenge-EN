@@ -31,7 +31,10 @@
     focus:border-gray-500
     focus:bg-white focus:ring-0"
     name="vehicle-subtype"
-    > <!-- De subtypes zijn niet meer hardcoded maar dynamisch met ngFor-->
+    
+    > 
+    <!-- De subtypes zijn niet meer hardcoded maar dynamisch met ngFor-->
+     <option value="">Kies een subtype</option>
      <option *ngFor="let subtype of subtypes[vehicleType]" [value]="subtype">
       {{ subtype }}
     </option>

@@ -10,4 +10,5 @@ type VehicleType = 'auto' | 'motor' | 'scooter';
 export class AppComponent {
   // Shared vehicle state is here so the form and preview stays in sync
   vehicleType: VehicleType = 'auto';
+  vehicleSubtype = '';
 }

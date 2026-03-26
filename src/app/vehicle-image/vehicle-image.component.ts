@@ -1,9 +1,16 @@
 import { Component, Input } from '@angular/core';
 
-type VehicleType = 'auto' | 'motor' | 'scooter';
-// type VehicleSubtype = 'Hatchback' | 'Sedan' | 'Station' | 'Cabriolet' | 'Coupé' 
-// | 'MPV' | 'Terreinauto' | 'All-road' | 'Naked' | 'Enduro' | 'Race' | 'Toermotor' |
-// 'Chopper' | 'Zijspan'; 
+type vehicleType = 'auto' | 'motor' | 'scooter';
+
+const autoImageMap: Record<string, string> = {
+  Hatchback: 'subtype/Hatchback.jpg',
+  Sedan: 'subtype/Sedan.jpg',
+  Station: 'subtype/Station.jpg',
+  Cabriolet: 'subtype/Cabriolet.jpg',
+  'Coupé': 'subtype/Coupe.jpg',
+  MPV: 'subtype/MPV.jpg',
+  Terreinauto: 'subtype/Terreinauto.jpg'
+};
 
 @Component({
   selector: 'app-vehicle-image',
@@ -13,12 +20,14 @@ type VehicleType = 'auto' | 'motor' | 'scooter';
 
 // receives the selected vehicle type from the parent in order to update preview
 export class VehicleImageComponent {
-  @Input() vehicleType: VehicleType = 'auto';
-  @Input() vehicleSubtype = 'Hatchback';
+  @Input() vehicleType: vehicleType = 'auto';
+  @Input() vehicleSubtype = '';
 
 // For current vehicle selection it matches the image path
   get vehicleImage(): string {
+    if (this.vehicleType === 'auto' && this.vehicleSubtype) {
+      return `assets/${autoImageMap[this.vehicleSubtype] ?? 'auto.jpg'}`;
+    }
     return `assets/${this.vehicleType}.jpg`;
-    // return `assets/${this.vehicleSubType}.jpg`;
   }
 }

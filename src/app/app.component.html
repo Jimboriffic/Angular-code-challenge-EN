@@ -2,11 +2,14 @@
   <!-- selected vehicle type is passed here and listens for updates-->
   <app-vehicle-form
     [vehicleType]="vehicleType"
+    [vehicleSubtype]="vehicleSubtype"
     (vehicleTypeChange)="vehicleType = $event"
+    (vehicleSubtypeChange)="vehicleSubtype = $event"
   ></app-vehicle-form>
 
   <!-- reuse vehicle type to update preview image-->
   <app-vehicle-image
     [vehicleType]="vehicleType"
+    [vehicleSubtype]="vehicleSubtype"
   ></app-vehicle-image>
 </div>

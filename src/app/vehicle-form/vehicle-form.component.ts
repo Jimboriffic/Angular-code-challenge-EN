@@ -12,15 +12,18 @@ type VehicleType = 'auto' | 'motor' | 'scooter';
 })
 export class VehicleFormComponent implements OnInit {
   @Input() vehicleType: VehicleType = 'auto';
+  @Input() vehicleSubtype = '';
+
   @Output() vehicleTypeChange = new EventEmitter<VehicleType>();
+  @Output() vehicleSubtypeChange = new EventEmitter<string>();
 
   vehicleForm = new FormGroup({
     vehicleType: new FormControl<VehicleType>('auto', { nonNullable: true }),
-    vehicleSubtype: new FormControl('Hatchback', { nonNullable: true }),
+    vehicleSubtype: new FormControl('', { nonNullable: true }),
     licensePlate: new FormControl('', { nonNullable: true })
   });
 
-  vehicleSubtype = 'Hatchback';
+  
   licensePlate = '';
   showLicensePlateError = false;
   showLicensePlateSuccess = false;
@@ -36,11 +39,17 @@ export class VehicleFormComponent implements OnInit {
     // Keeps subtype and parent state in sync when vehicle type changes
     this.vehicleForm.controls.vehicleType.valueChanges.subscribe((value) => {
     this.vehicleType = value;
-    this.vehicleSubtype = this.subtypes[value][0] ?? '';
+    this.vehicleSubtype = '';
 
     this.vehicleForm.controls.vehicleSubtype.setValue(this.vehicleSubtype);
     this.vehicleTypeChange.emit(value);
+    this.vehicleSubtypeChange.emit(this.vehicleSubtype);
     });
+
+    this.vehicleForm.controls.vehicleSubtype.valueChanges.subscribe((value) => {
+    this.vehicleSubtype = value;
+    this.vehicleSubtypeChange.emit(value);
+  });
 
     // Normalize user input to Dutch licence plate format while typing
     this.vehicleForm.controls.licensePlate.valueChanges.subscribe((value) => {
